@@ -81,7 +81,7 @@ public final class Core_v1 extends JPanel {
         player.setName(name);
         friend.setName(name);
         if (isServer) {
-            initServer(imgId, name);
+            initServer(imgId, ip, name);
         } else {
             initClient(imgId, ip, name);
         }
@@ -113,13 +113,17 @@ public final class Core_v1 extends JPanel {
         addMouseMotionListener(new MouseController());
     }
 
+    private static boolean validateIp(String ip) {
+        return ip != null && !ip.isEmpty(); // TODO: 11/19/18 actual IP validation
+    }
+
     // init both server and client
     // need to recode to get standalone server
-    private void initServer(int imgId, String name) {
+    private void initServer(int imgId, String ip, String name) {
         player.setImage(imgId);
         Main.main.setTitle(Main.GAME_TITLE + " - Server");
 
-        serverIp = "localhost";
+        serverIp = validateIp(ip) ? ip : "localhost";
         try {
             server = new Server(1234, protocol);
             client = new Client(1234, serverIp, protocol);
