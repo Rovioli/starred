@@ -16,6 +16,8 @@ import me.riseremi.network.messages.MessageConnect;
 import me.riseremi.network.messages.MessageEndTurn;
 import me.riseremi.network.messages.MessageGameOver;
 import org.rising.framework.network.Client;
+import me.riseremi.network.ClientSeverProtocol;
+import org.rising.framework.network.Protocol;
 import org.rising.framework.network.Server;
 
 import javax.swing.*;
@@ -35,7 +37,6 @@ public final class Core_v1 extends JPanel {
     private Server server;
     private Client client;
     private static Core_v1 instance;
-    private boolean connected = false;
     private boolean nextTurnAvailable;
     private Font walkwayBold;
     //
@@ -54,12 +55,22 @@ public final class Core_v1 extends JPanel {
     private int cardsDrawn = 0, cardsDrawnLimit = 30;
     private boolean gameOver;
     private int winnerId;
+    private String serverIp = "localhost";
+    private final Protocol protocol = new ClientSeverProtocol();
 
     public static Core_v1 getInstance() {
         if (instance == null) {
             instance = new Core_v1();
         }
         return instance;
+    }
+
+    public static Server getServer() {
+        return getInstance().server;
+    }
+
+    public static Client getClient() {
+        return getInstance().client;
     }
 
     private Core_v1() {
@@ -70,9 +81,8 @@ public final class Core_v1 extends JPanel {
         player.setName(name);
         friend.setName(name);
         if (isServer) {
-            initServer(imgId, name);
+            initServer(imgId, ip, name);
         } else {
-            Server.SERVER_IP = ip;
             initClient(imgId, ip, name);
         }
     }
@@ -103,15 +113,23 @@ public final class Core_v1 extends JPanel {
         addMouseMotionListener(new MouseController());
     }
 
+    private static boolean validateIp(String ip) {
+        return ip != null && !ip.isEmpty(); // TODO: 11/19/18 actual IP validation
+    }
+
     // init both server and client
     // need to recode to get standalone server
-    private void initServer(int imgId, String name) {
+    private void initServer(int imgId, String ip, String name) {
         player.setImage(imgId);
         Main.main.setTitle(Main.GAME_TITLE + " - Server");
 
-        Server.SERVER_IP = "localhost";
-        server = Server.getInstance();
-        client = Client.getInstance();
+        serverIp = validateIp(ip) ? ip : "localhost";
+        try {
+            server = new Server(1234, protocol);
+            client = new Client(1234, serverIp, protocol);
+        } catch (IOException e) {
+            System.err.println("Cannot establish a connection!");
+        }
 
         try {
             client.send(new MessageConnect(player.getName(), imgId));
@@ -123,9 +141,14 @@ public final class Core_v1 extends JPanel {
     }
 
     public void initClient(int imgId, String ip, String name) {
+        serverIp = ip;
         player.setImage(imgId);
         Main.main.setTitle(Main.GAME_TITLE + " - Client");
-        client = Client.getInstance();
+        try {
+            client = new Client(1234, serverIp, protocol);
+        } catch (IOException e) {
+            System.err.println("Client initialization failure");
+        }
         try {
             client.send(new MessageConnect(player.getName(), imgId));
             Main.getLobbyScreen().getPlayersListModel().addElement(player.getName());
@@ -255,7 +278,7 @@ public final class Core_v1 extends JPanel {
             MessageGameOver message = new MessageGameOver(winner);
 
             try {
-                Client.getInstance().send(message);
+                Core_v1.getClient().send(message);
             } catch (IOException ignored) {
             }
         }
@@ -312,7 +335,7 @@ public final class Core_v1 extends JPanel {
      */
     public void endTurn() throws IOException {
         Main.addToChat("DEBUG: Ending turn...\r\n");
-        Client.getInstance().send(new MessageEndTurn());
+        Core_v1.getClient().send(new MessageEndTurn());
         player.resetActionPoints();
         nextTurnAvailable = !nextTurnAvailable;
     }

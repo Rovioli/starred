@@ -1,8 +1,7 @@
-package org.rising.framework.network;
+package me.riseremi.network;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 import me.riseremi.core.Core_v1;
 import me.riseremi.entities.Entity;
 import me.riseremi.entities.Player;
@@ -14,17 +13,19 @@ import me.riseremi.network.messages.MessageSetFriendId;
 import me.riseremi.network.messages.MessageSetIconId;
 import me.riseremi.network.messages.MessageSetName;
 import me.riseremi.network.messages.MessageSetPlayerId;
+import org.rising.framework.network.Message;
+import org.rising.framework.network.Protocol;
 
 /**
  *
  * @author riseremi <riseremi at icloud.com>
  */
-public class Protocol {
+public class ClientSeverProtocol implements Protocol {
 
-    private static final Random rnd = new Random();
     private static final ArrayList<Entity> players = new ArrayList<>();
 
-    public static void processMessageOnServerSide(final Message message, int id) throws IOException {
+    @Override
+    public void processMessageOnServerSide(final Message message, int id) throws IOException {
         Message.Type type = message.getType();
 
         switch (type) {
@@ -40,19 +41,19 @@ public class Protocol {
 
                 if (players.size() == 2) {
                     for (Entity e : players) {
-                        Server.getInstance().sendToOne(
+                        Core_v1.getServer().sendToOne(
                                 new MessageSetPlayerId(e.getId()), e.getId());
 
-                        Server.getInstance().sendToAllExcludingOne(
+                        Core_v1.getServer().sendToAllExcludingOne(
                                 new MessageSetFriendId(e.getId()), e.getId());
 
-                        Server.getInstance().sendToAll(
+                        Core_v1.getServer().sendToAll(
                                 new MessageSetName(e.getName(), e.getId()));
 
-                        Server.getInstance().sendToAllExcludingOne(
+                        Core_v1.getServer().sendToAllExcludingOne(
                                 new MessageSetIconId(e.getImgId()), e.getId());
 
-                        Server.getInstance().sendToAllExcludingOne(
+                        Core_v1.getServer().sendToAllExcludingOne(
                                 new MessageAddToTheLobby(e.getName()), e.getId());
                     }
                     Main.getLobbyScreen().setCanGo();
@@ -61,17 +62,18 @@ public class Protocol {
             case CHAT_MESSAGE:
             case SET_POSITION:
             case ATTACK:
-                Server.getInstance().sendToAll(message);
+                Core_v1.getServer().sendToAll(message);
                 break;
             case TURN_END:
-                Server.getInstance().sendToAllExcludingOne(message, id);
+                Core_v1.getServer().sendToAllExcludingOne(message, id);
                 break;
             default:
-                Server.getInstance().sendToAll(message);
+                Core_v1.getServer().sendToAll(message);
         }
     }
 
-    public static void processMessageOnClientSide(Message message) {
+    @Override
+    public void processMessageOnClientSide(Message message) {
         Message.Type type = message.getType();
         Core_v1 core = Core_v1.getInstance();
         int id;

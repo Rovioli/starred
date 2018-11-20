@@ -6,7 +6,6 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import me.riseremi.main.Main;
 
 /**
  *
@@ -14,40 +13,26 @@ import me.riseremi.main.Main;
  */
 public class Server {
 
-    public static String SERVER_IP;
+    private static final boolean DEBUG = false;
     private ServerSocket serverSocket;
     private ArrayList<Connection> clients = new ArrayList<>();
-    //
-    private int i;
-    private static Server instance;
+    private int connections;
+    private final Protocol protocol;
 
-    public static Server getInstance() {
-        if (instance == null) {
-            try {
-                instance = new Server(1234);
-                return instance;
-            } catch (IOException ex) {
-            }
-        }
-        return instance;
-    }
-
-    private Server(int port) throws IOException {
+    public Server(int port, Protocol protocol) throws IOException {
+        this.protocol = protocol;
         serverSocket = new ServerSocket(port);
 
-        Thread t = new Thread() {
-            @Override
-            public void run() {
-                while (true) {
-                    try {
-                        Socket socket = serverSocket.accept();
-                        final Connection connection = new Connection(socket, i++);
-                        clients.add(connection);
-                    } catch (IOException ex) {
-                    }
+        Thread t = new Thread(() -> {
+            while (true) {
+                try {
+                    Socket socket = serverSocket.accept();
+                    final Connection connection = new Connection(socket, connections++);
+                    clients.add(connection);
+                } catch (IOException ex) {
                 }
             }
-        };
+        });
         t.start();
     }
 
@@ -70,7 +55,7 @@ public class Server {
         clients.get(index).send(message);
     }
 
-    static class Connection {
+    class Connection {
 
         private ObjectInputStream in;
         private ObjectOutputStream out;
@@ -82,21 +67,18 @@ public class Server {
             out.flush();
             in = new ObjectInputStream(socket.getInputStream());
 
-            Thread t = new Thread() {
-                @Override
-                public void run() {
-                    while (true) {
-                        try {
-                            Message s = (Message) in.readObject();
-                            if (Main.ENABLE_DEBUG_TOOLS) {
-                                System.out.println("SERVER RECIEVED: " + s.getType().name());
-                            }
-                            Protocol.processMessageOnServerSide(s, id);
-                        } catch (IOException | ClassNotFoundException ex) {
+            Thread t = new Thread(() -> {
+                while (true) {
+                    try {
+                        Message s = (Message) in.readObject();
+                        if (DEBUG) {
+                            System.out.println("SERVER RECIEVED: " + s.getType().name());
                         }
+                        protocol.processMessageOnServerSide(s, id);
+                    } catch (IOException | ClassNotFoundException ex) {
                     }
                 }
-            };
+            });
             t.start();
         }
 
