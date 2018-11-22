@@ -16,6 +16,7 @@ import static me.riseremi.main.Main.setUIFont;
 public class LobbyScreen extends JPanel implements ActionListener {
 
     private static final JButton goButton = new RButton("Go!", false);
+    private static JButton backButton = new RButton("Back", false);
     private DefaultListModel playersListModel = new DefaultListModel();
     private JList playersList = new JList(playersListModel);
 
@@ -27,6 +28,7 @@ public class LobbyScreen extends JPanel implements ActionListener {
         setLayout(null);
 
         goButton.setBounds(64, 64, frameWidth / 4, 32);
+        backButton.setBounds(64, 28, frameWidth / 4, 32);
         jLabel.setBounds(64, 64 + 38, frameWidth / 4, 32);
         playersList.setBounds(64, 128, frameWidth / 4, 320);
 
@@ -37,11 +39,15 @@ public class LobbyScreen extends JPanel implements ActionListener {
 
         add(jLabel);
         add(playersList);
-
+        add(backButton);
     }
 
     public static JButton getGoButton() {
         return LobbyScreen.goButton;
+    }
+
+    public static JButton getBackButton() {
+        return backButton;
     }
 
     public void setCanGo() {

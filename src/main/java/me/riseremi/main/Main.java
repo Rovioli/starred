@@ -54,6 +54,7 @@ public class Main extends JFrame implements ActionListener {
         LoginScreen.getHostButton().addActionListener(this);
         LoginScreen.getJoinButton().addActionListener(this);
         LobbyScreen.getGoButton().addActionListener(this);
+        LobbyScreen.getBackButton().addActionListener(this);
     }
 
     public static void main(String[] args) {
@@ -187,6 +188,12 @@ public class Main extends JFrame implements ActionListener {
                 Core_v1.getServer().sendToAll(new MessageGo());
             } catch (Exception ignored) {
             }
+        }
+        if (e.getSource().equals(LobbyScreen.getBackButton())) {
+            lobbyScreen.setVisible(false);
+            loginScreen.setVisible(true);
+            main.add(loginScreen, BorderLayout.CENTER);
+            main.remove(lobbyScreen);
         }
         if (e.getSource() == LoginScreen.getHostButton()) initAsServer();
         if (e.getSource() == LoginScreen.getJoinButton()) initAsClient();
