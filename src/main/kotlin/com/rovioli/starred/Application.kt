@@ -5,6 +5,7 @@ import com.rovioli.starred.service.AudioManager
 import com.rovioli.starred.service.ComponentManager
 import com.rovioli.starred.service.ResourceManager
 import me.riseremi.core.Camera
+import me.riseremi.main.Main
 import me.riseremi.network.ClientSeverProtocol
 
 /**
@@ -24,6 +25,9 @@ fun main(args: Array<String>) {
             Camera(),
             ClientSeverProtocol()
     )
+
+    // Launch an old main method to start a game
+    Main.main(args)
 }
 
 fun getComponent(name: String) {
