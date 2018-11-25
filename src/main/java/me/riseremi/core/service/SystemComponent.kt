@@ -1,4 +1,4 @@
-package me.riseremi.core
+package me.riseremi.core.service
 
 /**
  * @author Vitalii Dmitriev
