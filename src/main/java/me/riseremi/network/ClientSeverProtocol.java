@@ -3,6 +3,7 @@ package me.riseremi.network;
 import java.io.IOException;
 import java.util.ArrayList;
 import me.riseremi.core.Core_v1;
+import me.riseremi.core.service.SystemComponent;
 import me.riseremi.entities.Entity;
 import me.riseremi.entities.Player;
 import me.riseremi.main.Main;
@@ -13,6 +14,7 @@ import me.riseremi.network.messages.MessageSetFriendId;
 import me.riseremi.network.messages.MessageSetIconId;
 import me.riseremi.network.messages.MessageSetName;
 import me.riseremi.network.messages.MessageSetPlayerId;
+import org.jetbrains.annotations.NotNull;
 import org.rising.framework.network.Message;
 import org.rising.framework.network.Protocol;
 
@@ -20,7 +22,7 @@ import org.rising.framework.network.Protocol;
  *
  * @author riseremi <riseremi at icloud.com>
  */
-public class ClientSeverProtocol implements Protocol {
+public class ClientSeverProtocol implements Protocol, SystemComponent {
 
     private static final ArrayList<Entity> players = new ArrayList<>();
 
@@ -112,4 +114,7 @@ public class ClientSeverProtocol implements Protocol {
         }
     }
 
+    @NotNull @Override public String getName() {
+        return "ClientServerProtocol";
+    }
 }
