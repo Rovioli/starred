@@ -14,6 +14,10 @@ class ComponentManager : SystemComponent {
         components[component.getName()] = component
     }
 
+    fun register(vararg newComponents: SystemComponent) {
+        newComponents.forEach { components[it.getName()] = it }
+    }
+
     fun find(componentName: String): SystemComponent? = components[componentName]
 
     init {
