@@ -1,6 +1,6 @@
 package me.riseremi.core
 
-import me.riseremi.core.service.SystemComponent
+import com.rovioli.starred.service.SystemComponent
 import java.awt.Graphics2D
 
 /**

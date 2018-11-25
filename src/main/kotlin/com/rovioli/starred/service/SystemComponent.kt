@@ -1,4 +1,4 @@
-package me.riseremi.core.service
+package com.rovioli.starred.service
 
 /**
  * @author Vitalii Dmitriev

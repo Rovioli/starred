@@ -3,7 +3,7 @@ package me.riseremi.network;
 import java.io.IOException;
 import java.util.ArrayList;
 import me.riseremi.core.Core_v1;
-import me.riseremi.core.service.SystemComponent;
+import com.rovioli.starred.service.SystemComponent;
 import me.riseremi.entities.Entity;
 import me.riseremi.entities.Player;
 import me.riseremi.main.Main;
