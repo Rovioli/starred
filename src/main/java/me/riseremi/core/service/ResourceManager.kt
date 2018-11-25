@@ -11,6 +11,11 @@ import javax.imageio.ImageIO
  * @since 25.11.2018
  */
 class ResourceManager : SystemComponent {
+
+    enum class ResourceType {
+        AUDIO, IMAGE, STRING
+    }
+
     override fun getName() = "ResourceManager"
 
     @Throws(IOException::class)
