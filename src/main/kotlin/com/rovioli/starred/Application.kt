@@ -1,12 +1,11 @@
 package com.rovioli.starred
 
 import com.rovioli.starred.exception.NoSuchComponentException
-import com.rovioli.starred.service.AudioManager
-import com.rovioli.starred.service.ComponentManager
-import com.rovioli.starred.service.ResourceManager
+import com.rovioli.starred.service.*
 import me.riseremi.core.Camera
 import me.riseremi.main.Main
 import me.riseremi.network.ClientSeverProtocol
+import java.awt.image.BufferedImage
 
 /**
  * @author Vitalii Dmitriev
@@ -23,7 +22,8 @@ fun main(args: Array<String>) {
             resourceManager,
             AudioManager(resourceManager),
             Camera(),
-            ClientSeverProtocol()
+            ClientSeverProtocol(),
+            SpriteAnimator<BufferedImage>()
     )
 
     // Launch an old main method to start a game
