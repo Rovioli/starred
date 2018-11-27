@@ -1,4 +1,4 @@
-package com.rovioli.starred.service
+package com.rovioli.starred.service.animator
 
 import java.util.*
 

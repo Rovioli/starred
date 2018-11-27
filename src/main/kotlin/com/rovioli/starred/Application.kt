@@ -2,6 +2,9 @@ package com.rovioli.starred
 
 import com.rovioli.starred.exception.NoSuchComponentException
 import com.rovioli.starred.service.*
+import com.rovioli.starred.service.animator.SpriteAnimator
+import com.rovioli.starred.service.audio.AudioManager
+import com.rovioli.starred.service.resource.ResourceManager
 import me.riseremi.core.Camera
 import me.riseremi.main.Main
 import me.riseremi.network.ClientSeverProtocol

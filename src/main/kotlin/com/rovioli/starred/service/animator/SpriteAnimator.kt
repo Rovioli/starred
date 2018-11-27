@@ -1,4 +1,6 @@
-package com.rovioli.starred.service
+package com.rovioli.starred.service.animator
+
+import com.rovioli.starred.service.SystemComponent
 
 /**
  * @author Vitalii Dmitriev

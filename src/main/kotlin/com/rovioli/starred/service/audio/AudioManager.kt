@@ -1,4 +1,7 @@
-package com.rovioli.starred.service
+package com.rovioli.starred.service.audio
+
+import com.rovioli.starred.service.resource.ResourceManager
+import com.rovioli.starred.service.SystemComponent
 
 /**
  * @author Vitalii Dmitriev

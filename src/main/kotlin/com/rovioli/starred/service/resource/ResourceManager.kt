@@ -1,5 +1,6 @@
-package com.rovioli.starred.service
+package com.rovioli.starred.service.resource
 
+import com.rovioli.starred.service.SystemComponent
 import java.awt.image.BufferedImage
 import java.io.IOException
 import java.io.InputStream
