@@ -6,4 +6,6 @@ package com.rovioli.starred.service.animator
  */
 interface Animator {
     fun animate(key: String)
+
+    fun stop(key: String)
 }
