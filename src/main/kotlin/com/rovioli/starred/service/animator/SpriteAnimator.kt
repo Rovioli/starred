@@ -6,7 +6,7 @@ import com.rovioli.starred.service.SystemComponent
  * @author Vitalii Dmitriev
  * @since 27.11.2018
  */
-open class SpriteAnimator<E> : Animator, SystemComponent {
+open class SpriteAnimator<E>(private val renderThread: Thread) : Animator, SystemComponent {
     private val states = mutableMapOf<String, AnimationState<E>>()
 
     fun addSequence(state: AnimationState<E>) = {
@@ -19,5 +19,4 @@ open class SpriteAnimator<E> : Animator, SystemComponent {
     }
 
     override fun getName() = "SpriteAnimator"
-
 }

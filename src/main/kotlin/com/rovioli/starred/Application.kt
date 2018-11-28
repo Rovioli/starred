@@ -17,7 +17,7 @@ import java.awt.image.BufferedImage
 
 
 private lateinit var componentManager: ComponentManager
-
+private val renderThread: Thread = Thread()
 fun main(args: Array<String>) {
     val resourceManager = ResourceManager()
     componentManager = ComponentManager()
@@ -26,7 +26,7 @@ fun main(args: Array<String>) {
             AudioManager(resourceManager),
             Camera(),
             ClientSeverProtocol(),
-            SpriteAnimator<BufferedImage>()
+            SpriteAnimator<BufferedImage>(renderThread)
     )
 
     // Launch an old main method to start a game
