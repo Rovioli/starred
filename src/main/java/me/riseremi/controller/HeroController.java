@@ -28,30 +28,30 @@ public class HeroController {
         if (player.isCanMove()) {
             if (ke.getKeyCode() == KeyEvent.VK_DOWN
                     && !(CheckObstacles.checkObstacle(world, hero_xx, y1 + 1))
-                    && player.canDoIt(Entity.MOVE_COST)) {
+                    && player.canDoIt(Entity.Companion.getMOVE_COST())) {
                 Core_v1.getClient().send(new MessageSetPosition(player1.getId(), x1, y1 + 1));
-                player.subtractActionPoints(Entity.MOVE_COST);
+                player.subtractActionPoints(Entity.Companion.getMOVE_COST());
             }
 
             if (ke.getKeyCode() == KeyEvent.VK_UP
                     && !(CheckObstacles.checkObstacle(world, hero_xx, y1 - 1))
-                    && player.canDoIt(Entity.MOVE_COST)) {
+                    && player.canDoIt(Entity.Companion.getMOVE_COST())) {
                 Core_v1.getClient().send(new MessageSetPosition(player1.getId(), x1, y1 - 1));
-                player.subtractActionPoints(Entity.MOVE_COST);
+                player.subtractActionPoints(Entity.Companion.getMOVE_COST());
             }
             //
             if (ke.getKeyCode() == KeyEvent.VK_LEFT
                     && !(CheckObstacles.checkObstacle(world, hero_xx - 1, y1))
-                    && player.canDoIt(Entity.MOVE_COST)) {
+                    && player.canDoIt(Entity.Companion.getMOVE_COST())) {
                 Core_v1.getClient().send(new MessageSetPosition(player1.getId(), x1 - 1, y1));
-                player.subtractActionPoints(Entity.MOVE_COST);
+                player.subtractActionPoints(Entity.Companion.getMOVE_COST());
             }
             //
             if (ke.getKeyCode() == KeyEvent.VK_RIGHT
                     && !(CheckObstacles.checkObstacle(world, hero_xx + 1, y1))
-                    && player.canDoIt(Entity.MOVE_COST)) {
+                    && player.canDoIt(Entity.Companion.getMOVE_COST())) {
                 Core_v1.getClient().send(new MessageSetPosition(player1.getId(), x1 + 1, y1));
-                player.subtractActionPoints(Entity.MOVE_COST);
+                player.subtractActionPoints(Entity.Companion.getMOVE_COST());
             }
             //end turn
             if (ke.getKeyCode() == KeyEvent.VK_F11) {
