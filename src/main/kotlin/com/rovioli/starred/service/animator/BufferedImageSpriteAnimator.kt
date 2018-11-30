@@ -29,18 +29,23 @@ open class BufferedImageSpriteAnimator(private val renderThread: Thread) : Anima
         // TODO: rewrite with coroutines
         run.set(true)
         renderThread.run {
-            while (run.get()) {
-                val state = states[key] ?: throw NoSuchElementException("There's no such state $key")
+            val state = states[key] ?: throw NoSuchElementException("There's no such state $key")
+            state.play()
+            while (run.get() && state.isPlaying()) {
                 val image = state.pop()
-                canvas.drawImage(image, null, 0, 0)
+                canvas.drawImage(image, null, state.x, state.y)
                 state.offerLast(image)
             }
+            state.stop()
         }
     }
 
-    override fun stop(key: String) {
-        // TODO: make it stop a particular state
+    override fun stop() {
         run.set(false)
+    }
+
+    override fun stop(key: String) {
+        states[key]?.stop()
     }
 
     override fun getName() = "BufferedImageSpriteAnimator"

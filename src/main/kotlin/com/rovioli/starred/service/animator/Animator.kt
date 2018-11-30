@@ -8,4 +8,6 @@ interface Animator {
     fun animate(key: String)
 
     fun stop(key: String)
+
+    fun stop()
 }
