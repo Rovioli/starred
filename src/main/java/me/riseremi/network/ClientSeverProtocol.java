@@ -1,28 +1,22 @@
 package me.riseremi.network;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import me.riseremi.core.Core_v1;
 import com.rovioli.starred.system.SystemComponent;
+import me.riseremi.core.Core_v1;
 import me.riseremi.entities.Entity;
 import me.riseremi.entities.Player;
 import me.riseremi.main.Main;
-import me.riseremi.network.messages.MessageAddToTheLobby;
-import me.riseremi.network.messages.MessageChat;
-import me.riseremi.network.messages.MessageConnect;
-import me.riseremi.network.messages.MessageSetFriendId;
-import me.riseremi.network.messages.MessageSetIconId;
-import me.riseremi.network.messages.MessageSetName;
-import me.riseremi.network.messages.MessageSetPlayerId;
+import me.riseremi.network.messages.*;
 import org.jetbrains.annotations.NotNull;
 import org.rising.framework.network.Message;
 import org.rising.framework.network.Protocol;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 /**
- *
  * @author riseremi <riseremi at icloud.com>
  */
-public class ClientSeverProtocol implements Protocol, SystemComponent {
+public class ClientSeverProtocol extends SystemComponent implements Protocol {
 
     private static final ArrayList<Entity> players = new ArrayList<>();
 

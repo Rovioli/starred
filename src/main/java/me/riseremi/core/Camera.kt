@@ -7,7 +7,7 @@ import java.awt.Graphics2D
  *
  * @author riseremi <riseremi at icloud.com>
 </riseremi> */
-class Camera : SystemComponent {
+class Camera : SystemComponent() {
 
     override fun getName() = "Camera"
 

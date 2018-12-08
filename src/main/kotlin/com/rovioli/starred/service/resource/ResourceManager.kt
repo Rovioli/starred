@@ -11,7 +11,7 @@ import javax.imageio.ImageIO
  * @author Vitalii Dmitriev
  * @since 25.11.2018
  */
-class ResourceManager : SystemComponent {
+class ResourceManager : SystemComponent() {
 
     enum class ResourceType {
         AUDIO, IMAGE, STRING

@@ -24,7 +24,7 @@ private val renderThread: Thread = Thread()
 fun main(args: Array<String>) {
     val threadManager = ThreadManager()
     val resourceManager = ResourceManager()
-    componentManager = ComponentManager()
+    componentManager = ComponentManager(threadManager)
     componentManager.register(
             threadManager,
             resourceManager,

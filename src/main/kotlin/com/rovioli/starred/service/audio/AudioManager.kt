@@ -7,7 +7,7 @@ import com.rovioli.starred.system.SystemComponent
  * @author Vitalii Dmitriev
  * @since 25.11.2018
  */
-class AudioManager(private val resourceManager: ResourceManager) : SystemComponent {
+class AudioManager(private val resourceManager: ResourceManager) : SystemComponent() {
     override fun getName() = "AudioManager"
 
     override fun accessibleByUser() = true

@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  * @author Vitalii Dmitriev
  * @since 27.11.2018
  */
-open class BufferedImageSpriteAnimator(private val renderThread: Thread) : Animator, SystemComponent {
+open class BufferedImageSpriteAnimator(private val renderThread: Thread) : Animator, SystemComponent() {
     private val states = mutableMapOf<String, AnimationState<BufferedImage>>()
     private lateinit var canvas: Graphics2D
     private val run: AtomicBoolean = AtomicBoolean(false)
