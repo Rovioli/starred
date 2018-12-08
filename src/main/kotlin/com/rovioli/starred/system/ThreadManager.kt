@@ -6,7 +6,7 @@ package com.rovioli.starred.system
  */
 class ThreadManager : SystemComponent() {
     enum class ThreadType {
-        RENDER, ANIMATION, RESOURCE, MAIN, WORKER
+        RENDER, ANIMATION, RESOURCE, MAIN, WORKER, NETWORK, UI
     }
 
     override fun getName() = "ThreadManager"
