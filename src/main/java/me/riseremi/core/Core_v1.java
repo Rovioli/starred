@@ -176,13 +176,13 @@ public final class Core_v1 extends JPanel {
         g.fillRect(0, 0, Global.WINDOW_WIDTH, Global.WINDOW_HEIGHT);
 
         //translate viewport and draw world and players
-        camera.translate(g);
+        camera.translate(g, true);
         world.draw(g);
 
         player.paint(g2, world, false);
         friend.paint(g2, world, true);
 
-        camera.untranslate(g);
+        camera.translate(g, false);
 
         player.getHpBar().paint(g2, player);
         friend.getHpBar().paint(g2, friend);
@@ -207,7 +207,7 @@ public final class Core_v1 extends JPanel {
 
             g.setColor(new Color(231, 76, 60, 50));
 
-            camera.translate(g);
+            camera.translate(g, true);
             for (int w = 1; w < radius * 2 + 1; w += 2) {
                 g.fillRect(xo - w / 2 * 32, yo - (radius - w / 2) * 32, w * 32, 32);
             }
@@ -225,7 +225,7 @@ public final class Core_v1 extends JPanel {
             for (int w = minRadius * 2 + 1; w > 0; w -= 2) {
                 g.fillRect(xo - w / 2 * 32, yo + (minRadius - w / 2) * 32, w * 32, 32);
             }
-            camera.untranslate(g);
+            camera.translate(g, false);
         }
         player.getHand().paint(g);
         g.setFont(walkwayBold);

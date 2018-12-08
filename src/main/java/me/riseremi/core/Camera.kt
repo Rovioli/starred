@@ -4,9 +4,8 @@ import com.rovioli.starred.system.SystemComponent
 import java.awt.Graphics2D
 
 /**
- *
  * @author riseremi <riseremi at icloud.com>
-</riseremi> */
+ */
 class Camera : SystemComponent() {
 
     override fun getName() = "Camera"
@@ -16,11 +15,8 @@ class Camera : SystemComponent() {
     var x: Int = 0
     var y: Int = 0
 
-    fun translate(g: Graphics2D) {
-        g.translate(x, y)
-    }
-
-    fun untranslate(g: Graphics2D) {
-        g.translate(-x, -y)
+    fun translate(g: Graphics2D, positive: Boolean) {
+        val d = if (positive) 1 else -1
+        g.translate(d * x, d * y)
     }
 }
