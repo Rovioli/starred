@@ -1,6 +1,6 @@
 package com.rovioli.starred.service.resource
 
-import com.rovioli.starred.service.SystemComponent
+import com.rovioli.starred.system.SystemComponent
 import java.awt.image.BufferedImage
 import java.io.IOException
 import java.io.InputStream
@@ -18,6 +18,8 @@ class ResourceManager : SystemComponent {
     }
 
     override fun getName() = "ResourceManager"
+
+    override fun accessibleByUser() = true
 
     @Throws(IOException::class)
     fun loadImage(resName: String): BufferedImage {

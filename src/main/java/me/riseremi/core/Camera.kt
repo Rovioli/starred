@@ -1,6 +1,6 @@
 package me.riseremi.core
 
-import com.rovioli.starred.service.SystemComponent
+import com.rovioli.starred.system.SystemComponent
 import java.awt.Graphics2D
 
 /**
@@ -10,6 +10,8 @@ import java.awt.Graphics2D
 class Camera : SystemComponent {
 
     override fun getName() = "Camera"
+
+    override fun accessibleByUser() = true
 
     var x: Int = 0
     var y: Int = 0

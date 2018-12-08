@@ -1,6 +1,6 @@
 package com.rovioli.starred.service.animator
 
-import com.rovioli.starred.service.SystemComponent
+import com.rovioli.starred.system.SystemComponent
 import java.awt.Graphics2D
 import java.awt.image.BufferedImage
 import java.util.NoSuchElementException
@@ -49,4 +49,6 @@ open class BufferedImageSpriteAnimator(private val renderThread: Thread) : Anima
     }
 
     override fun getName() = "BufferedImageSpriteAnimator"
+
+    override fun accessibleByUser() = true
 }

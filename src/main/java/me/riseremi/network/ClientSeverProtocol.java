@@ -3,7 +3,7 @@ package me.riseremi.network;
 import java.io.IOException;
 import java.util.ArrayList;
 import me.riseremi.core.Core_v1;
-import com.rovioli.starred.service.SystemComponent;
+import com.rovioli.starred.system.SystemComponent;
 import me.riseremi.entities.Entity;
 import me.riseremi.entities.Player;
 import me.riseremi.main.Main;
@@ -116,5 +116,9 @@ public class ClientSeverProtocol implements Protocol, SystemComponent {
 
     @NotNull @Override public String getName() {
         return "ClientServerProtocol";
+    }
+
+    @Override public boolean accessibleByUser() {
+        return true;
     }
 }

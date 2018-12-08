@@ -1,4 +1,4 @@
-package com.rovioli.starred.service
+package com.rovioli.starred.system
 
 /**
  * @author Vitalii Dmitriev
@@ -6,4 +6,6 @@ package com.rovioli.starred.service
  */
 interface SystemComponent {
     fun getName(): String
+
+    fun accessibleByUser(): Boolean
 }

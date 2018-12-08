@@ -1,7 +1,7 @@
 package com.rovioli.starred.service.audio
 
 import com.rovioli.starred.service.resource.ResourceManager
-import com.rovioli.starred.service.SystemComponent
+import com.rovioli.starred.system.SystemComponent
 
 /**
  * @author Vitalii Dmitriev
@@ -9,6 +9,8 @@ import com.rovioli.starred.service.SystemComponent
  */
 class AudioManager(private val resourceManager: ResourceManager) : SystemComponent {
     override fun getName() = "AudioManager"
+
+    override fun accessibleByUser() = true
 
     init {
         // TODO: preload sounds here

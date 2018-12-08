@@ -5,6 +5,8 @@ import com.rovioli.starred.service.*
 import com.rovioli.starred.service.animator.BufferedImageSpriteAnimator
 import com.rovioli.starred.service.audio.AudioManager
 import com.rovioli.starred.service.resource.ResourceManager
+import com.rovioli.starred.system.SystemComponent
+import com.rovioli.starred.system.ThreadManager
 import me.riseremi.core.Camera
 import me.riseremi.main.Main
 import me.riseremi.network.ClientSeverProtocol
@@ -18,10 +20,13 @@ import me.riseremi.network.ClientSeverProtocol
 private lateinit var componentManager: ComponentManager
 // TODO: introduce a ThreadHandler with something like looper.
 private val renderThread: Thread = Thread()
+
 fun main(args: Array<String>) {
+    val threadManager = ThreadManager()
     val resourceManager = ResourceManager()
     componentManager = ComponentManager()
     componentManager.register(
+            threadManager,
             resourceManager,
             AudioManager(resourceManager),
             Camera(),
@@ -33,6 +38,13 @@ fun main(args: Array<String>) {
     Main.main(args)
 }
 
-fun getComponent(name: String) {
-    componentManager.find(name) ?: throw NoSuchComponentException("Component $name is not registered.")
+fun getComponent(name: String): SystemComponent {
+    val component = componentManager.find(name) ?: throw NoSuchComponentException("Component $name is not registered.")
+    if (!component.accessibleByUser()) {
+        throw SecurityException("You can't get this component.")
+    }
+    /*if (!component.loaded()) {
+        throw IllegalStateException("Service not ready.")
+    }*/
+    return component
 }
