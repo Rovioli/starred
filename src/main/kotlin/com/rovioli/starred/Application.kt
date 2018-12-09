@@ -18,8 +18,6 @@ import me.riseremi.network.ClientSeverProtocol
 
 
 private lateinit var componentManager: ComponentManager
-// TODO: introduce a ThreadHandler with something like looper.
-private val renderThread: Thread = Thread()
 
 fun main(args: Array<String>) {
     val threadManager = ThreadManager()
@@ -31,7 +29,7 @@ fun main(args: Array<String>) {
             AudioManager(resourceManager),
             Camera(),
             ClientSeverProtocol(),
-            BufferedImageSpriteAnimator(renderThread)
+            BufferedImageSpriteAnimator()
     )
 
     // Launch an old main method to start a game

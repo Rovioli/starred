@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  * @author Vitalii Dmitriev
  * @since 27.11.2018
  */
-open class BufferedImageSpriteAnimator(private val renderThread: Thread) : Animator, SystemComponent() {
+open class BufferedImageSpriteAnimator : Animator, SystemComponent() {
     private val states = mutableMapOf<String, AnimationState<BufferedImage>>()
     private lateinit var canvas: Graphics2D
     private val run: AtomicBoolean = AtomicBoolean(false)
@@ -28,7 +28,7 @@ open class BufferedImageSpriteAnimator(private val renderThread: Thread) : Anima
     override fun animate(key: String) {
         // TODO: rewrite with coroutines
         run.set(true)
-        renderThread.run {
+        Thread {
             val state = states[key] ?: throw NoSuchElementException("There's no such state $key")
             state.play()
             while (run.get() && state.isPlaying()) {
@@ -37,7 +37,7 @@ open class BufferedImageSpriteAnimator(private val renderThread: Thread) : Anima
                 state.offerLast(image)
             }
             state.stop()
-        }
+        }.start()
     }
 
     override fun stop() {
