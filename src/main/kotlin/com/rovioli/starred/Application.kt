@@ -6,7 +6,6 @@ import com.rovioli.starred.service.animator.BufferedImageSpriteAnimator
 import com.rovioli.starred.service.audio.AudioManager
 import com.rovioli.starred.service.resource.ResourceManager
 import com.rovioli.starred.system.SystemComponent
-import com.rovioli.starred.system.ThreadManager
 import me.riseremi.core.Camera
 import me.riseremi.main.Main
 import me.riseremi.network.ClientSeverProtocol
@@ -16,15 +15,12 @@ import me.riseremi.network.ClientSeverProtocol
  * @since 25.11.2018
  */
 
-
 private lateinit var componentManager: ComponentManager
 
 fun main(args: Array<String>) {
-    val threadManager = ThreadManager()
     val resourceManager = ResourceManager()
-    componentManager = ComponentManager(threadManager)
+    componentManager = ComponentManager()
     componentManager.register(
-            threadManager,
             resourceManager,
             AudioManager(resourceManager),
             Camera(),
