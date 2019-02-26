@@ -31,7 +31,7 @@ abstract class SystemComponent : Loopable, Lifecycle {
 
     override fun onStart() {}
 
-    override fun onUpdate(delta: Int, vararg args: String) { }
+    override fun onUpdate(delta: Int, vararg args: String) {}
 
     override fun onStop() {}
 }

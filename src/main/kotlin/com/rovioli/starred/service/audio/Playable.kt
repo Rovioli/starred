@@ -4,9 +4,9 @@ package com.rovioli.starred.service.audio
  * @author Vitalii Dmitriev
  * @since 25.11.2018
  */
-interface Playable {
+interface Playable<T> {
 
-    fun play(repeat: Boolean = false)
+    fun play(source: T, repeat: Boolean = false)
 
     fun isPlaying(): Boolean
 

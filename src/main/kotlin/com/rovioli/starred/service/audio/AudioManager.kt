@@ -8,6 +8,9 @@ import com.rovioli.starred.system.SystemComponent
  * @since 25.11.2018
  */
 class AudioManager(private val resourceManager: ResourceManager) : SystemComponent() {
+
+    private val player: Player = Player()
+
     override fun getName() = "AudioManager"
 
     override fun accessibleByUser() = true
@@ -16,15 +19,7 @@ class AudioManager(private val resourceManager: ResourceManager) : SystemCompone
         // TODO: preload sounds here
     }
 
-    fun findAudio(name: String): Playable {
-        return object : Playable {
-            override fun play(repeat: Boolean) {}
-
-            override fun isPlaying(): Boolean = false
-
-            override fun stop() {}
-        }
+    fun play(name: String, repeat: Boolean = false) {
+        player.play(resourceManager.loadStream("sounds/lobby"))
     }
-
-    fun play(name: String, repeat: Boolean = false) {}
 }
