@@ -28,7 +28,7 @@ fun main(args: Array<String>) {
     )
 
     val manager = getComponent("AudioManager") as AudioManager
-    manager.play("lobby.mp3", true)
+    manager.play("game_1.mp3", true)
     // Launch an old main method to start a game
     Main.main(args)
 }

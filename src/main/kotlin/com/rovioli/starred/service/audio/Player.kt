@@ -2,6 +2,8 @@ package com.rovioli.starred.service.audio
 
 import javazoom.jl.player.FactoryRegistry
 import javazoom.jl.player.advanced.AdvancedPlayer
+import javazoom.jl.player.advanced.PlaybackEvent
+import javazoom.jl.player.advanced.PlaybackListener
 import java.io.InputStream
 
 /*
@@ -25,6 +27,16 @@ class Player : Playable<InputStream>, Runnable {
      */
     override fun play(source: InputStream, repeat: Boolean) {
         player = AdvancedPlayer(source, FactoryRegistry.systemRegistry().createAudioDevice())
+        player.playBackListener = object : PlaybackListener() {
+            override fun playbackStarted(evt: PlaybackEvent) {
+                println("Playback started from ${Thread.currentThread().name}")
+            }
+
+            override fun playbackFinished(evt: PlaybackEvent) {
+                isRunning = false
+                println("Playback finished from ${Thread.currentThread().name}")
+            }
+        }
         Thread(this, "SoundThread").start()
     }
 
