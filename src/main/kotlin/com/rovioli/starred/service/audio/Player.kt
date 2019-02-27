@@ -9,6 +9,7 @@ import javafx.scene.media.MediaPlayer
  * This https://www.oracle.com/technetwork/java/javase/certconfig-2095354.html
  * says that I can't compile JavaFX on RHEL (including Fedora).
  * Write once, run everywhere, but fedora.
+ * https://coub.com/view/1045mt
  */
 class Player : Playable<String>, Runnable {
 
