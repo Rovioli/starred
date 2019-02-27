@@ -6,6 +6,7 @@ import java.io.IOException
 import java.io.InputStream
 import java.net.URL
 import javax.imageio.ImageIO
+import javax.sound.sampled.AudioSystem
 
 /**
  * @author Vitalii Dmitriev
