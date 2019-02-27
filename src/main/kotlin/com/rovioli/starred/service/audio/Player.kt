@@ -1,36 +1,37 @@
 package com.rovioli.starred.service.audio
 
-import javafx.scene.media.Media
-import javafx.scene.media.MediaPlayer
+import javazoom.jl.player.FactoryRegistry
+import javazoom.jl.player.advanced.AdvancedPlayer
+import java.io.InputStream
 
 /*
- * TODO: have a look
- * https://docs.oracle.com/javase/tutorial/sound/index.html
- * This https://www.oracle.com/technetwork/java/javase/certconfig-2095354.html
- * says that I can't compile JavaFX on RHEL (including Fedora).
- * Write once, run everywhere, but fedora.
+ * Unlike the JavaFX solution, it compiles.
+ * Just silently doesn't work.
  * https://coub.com/view/1045mt
  */
-class Player : Playable<String>, Runnable {
+class Player : Playable<InputStream>, Runnable {
 
-    private lateinit var mediaPlayer: MediaPlayer
+    lateinit var player: AdvancedPlayer
     private var isRunning = false
 
     override fun run() {
+        println("current thread: ${Thread.currentThread().name}")
         isRunning = true
+        player.play()
     }
 
-    override fun play(source: String, repeat: Boolean) {
-        mediaPlayer = MediaPlayer(Media(source))
-        mediaPlayer.play()
-        Thread(this).start()
+    /**
+     * @param repeat is actually ignored. TODO: use the repeat, luke.
+     */
+    override fun play(source: InputStream, repeat: Boolean) {
+        player = AdvancedPlayer(source, FactoryRegistry.systemRegistry().createAudioDevice())
+        Thread(this, "SoundThread").start()
     }
 
-    override fun isPlaying() =
-            isRunning && mediaPlayer.status == MediaPlayer.Status.PLAYING
+    override fun isPlaying() = isRunning
 
     override fun stop() {
-        mediaPlayer.stop()
+        player.stop()
         isRunning = false
     }
 }

@@ -23,7 +23,7 @@ sourceSets {
     }
 }
 
-mainClassName = "com.rovioli.starred.Application"
+mainClassName = "com.rovioli.starred.ApplicationKt"
 
 jar {
     manifest {
@@ -44,6 +44,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlinVersion"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
     implementation "org.jetbrains.kotlin:kotlin-runtime:1.2.71"
-    implementation 'org.openjfx:javafx:11'
+    implementation 'javazoom:jlayer:1.0.1'
     implementation 'org.json:json:20180813'
 }

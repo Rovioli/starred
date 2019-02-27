@@ -4,6 +4,8 @@ import com.rovioli.starred.service.resource.ResourceManager
 import com.rovioli.starred.system.SystemComponent
 import javafx.scene.media.Media
 import javafx.scene.media.MediaPlayer
+import java.io.File
+import java.io.FileInputStream
 import javax.sound.sampled.AudioInputStream
 import javax.sound.sampled.AudioSystem
 
@@ -24,6 +26,8 @@ class AudioManager(private val resourceManager: ResourceManager) : SystemCompone
     }
 
     fun play(name: String, repeat: Boolean = false) {
-        player.play(resourceManager.loadUrl("sounds/$name").toString(), repeat)
+//        val file = File(resourceManager.loadUrl("sounds/$name").toURI())
+//        val fis = FileInputStream(file)
+        player.play(resourceManager.loadStream("sounds/$name"), repeat)
     }
 }
