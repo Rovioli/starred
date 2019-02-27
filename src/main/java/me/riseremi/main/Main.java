@@ -9,7 +9,7 @@ import me.riseremi.network.messages.MessageGo;
 import me.riseremi.network.messages.MessageSetName;
 import me.riseremi.ui.windows.LobbyScreen;
 import me.riseremi.ui.windows.LoginScreen;
-import org.rising.framework.network.Client;
+import org.rising.framewotrk.network.Client;
 import org.rising.framework.network.Server;
 
 import javax.swing.*;
