@@ -9,18 +9,21 @@ import me.riseremi.network.messages.MessageGo;
 import me.riseremi.network.messages.MessageSetName;
 import me.riseremi.ui.windows.LobbyScreen;
 import me.riseremi.ui.windows.LoginScreen;
-import org.rising.framework.network.Client;
-import org.rising.framework.network.Server;
 
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.DefaultCaret;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Enumeration;
+
+import static me.riseremi.utils.ComponentWrapperUtils.getAudioManager;
 
 /**
  * @author riseremi <riseremi at icloud.com>
@@ -174,6 +177,7 @@ public class Main extends JFrame implements ActionListener {
             lobbyScreen.setVisible(false);
             main.add(core);
             main.requestFocus();
+            getAudioManager().stop();
         });
     }
 
@@ -208,6 +212,8 @@ public class Main extends JFrame implements ActionListener {
         loginScreen.setVisible(false);
         main.add(lobbyScreen, BorderLayout.CENTER);
         lobbyScreen.setVisible(true);
+
+        getAudioManager().play("lobby.mp3", true);
     }
 
     private void initAsServer() {

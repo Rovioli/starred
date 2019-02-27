@@ -26,6 +26,9 @@ class Player : Playable<InputStream>, Runnable {
      * @param repeat is actually ignored. TODO: use the repeat, luke.
      */
     override fun play(source: InputStream, repeat: Boolean) {
+        if (isRunning) {
+            stop()
+        }
         player = AdvancedPlayer(source, FactoryRegistry.systemRegistry().createAudioDevice())
         player.playBackListener = object : PlaybackListener() {
             override fun playbackStarted(evt: PlaybackEvent) {
@@ -45,5 +48,6 @@ class Player : Playable<InputStream>, Runnable {
     override fun stop() {
         player.stop()
         isRunning = false
+        Thread.currentThread().interrupt()
     }
 }

@@ -7,7 +7,7 @@ import com.rovioli.starred.system.SystemComponent
  * @author Vitalii Dmitriev
  * @since 25.11.2018
  */
-class AudioManager(private val resourceManager: ResourceManager) : SystemComponent() {
+class AudioManager(private val resourceManager: ResourceManager) : Playable<String>, SystemComponent() {
 
     private val player: Player = Player()
 
@@ -19,7 +19,13 @@ class AudioManager(private val resourceManager: ResourceManager) : SystemCompone
         // TODO: preload sounds here
     }
 
-    fun play(name: String, repeat: Boolean = false) {
-        player.play(resourceManager.loadStream("sounds/$name"), repeat)
+    override fun play(source: String, repeat: Boolean) {
+        player.play(resourceManager.loadStream("sounds/$source"), repeat)
+    }
+
+    override fun isPlaying() = player.isPlaying()
+
+    override fun stop() {
+        player.stop()
     }
 }

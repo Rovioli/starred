@@ -27,8 +27,6 @@ fun main(args: Array<String>) {
             BufferedImageSpriteAnimator()
     )
 
-    val manager = getComponent("AudioManager") as AudioManager
-    manager.play("game_1.mp3", true)
     // Launch an old main method to start a game
     Main.main(args)
 }
